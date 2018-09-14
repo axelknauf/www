@@ -1,7 +1,6 @@
 ---
 date: "2015-10-20"
 title: Oracle Administration Snippets
-layout: post
 ---
 
 On this page I am collecting bits and pieces which help with Oracle database administration. I have collected them from over the internet, so thanks a lot to all those people providing these helpful examples. In case you are the author of one of them and would like some credit, please let me know and I will mention the source gladly.
@@ -59,7 +58,7 @@ On this page I am collecting bits and pieces which help with Oracle database adm
         SELECT session_id,lock_type, mode_held, mode_requested, blocking_others, lock_id1
         FROM dba_lock l
         WHERE lock_type NOT IN ('Media Recovery', 'Redo Thread');
-        
+
         -- generally locked objects
         SELECT oracle_username USERNAME, owner OBJECT_OWNER,
         object_name, object_type, s.osuser,
@@ -176,14 +175,14 @@ On this page I am collecting bits and pieces which help with Oracle database adm
 ### Create DB links
 
         CREATE DATABASE LINK "link_name"
-          CONNECT TO schema_name 
+          CONNECT TO schema_name
           IDENTIFIED BY pass
           USING 'tns definition (e. g. from tnsnames.ora)';
 
 ### Determine table size (MB)
 
         SELECT
-          segment_name AS table_name,   
+          segment_name AS table_name,
           Sum(bytes)/(1024*1024) table_size_meg
         FROM user_extents
         WHERE segment_type='TABLE'
@@ -203,41 +202,41 @@ On this page I am collecting bits and pieces which help with Oracle database adm
         FROM V$SESSION_LONGOPS v, v$session se
         WHERE v.sid = se.sid
         AND v.username = 'user_name'
-        ORDER BY se.machine 
+        ORDER BY se.machine
 
         -- determine progress and remaining time
         SELECT
-          To_Char(Floor(elapsed_seconds / 3600), 'FM09') || ':' || 
-          To_Char(Floor(Mod(elapsed_seconds, 3600) / 60), 'FM09') || ':' || 
+          To_Char(Floor(elapsed_seconds / 3600), 'FM09') || ':' ||
+          To_Char(Floor(Mod(elapsed_seconds, 3600) / 60), 'FM09') || ':' ||
           To_Char(Mod(elapsed_seconds, 60), 'FM09') AS runtime,
-          To_Char(Floor(time_remaining / 3600), 'FM09') || ':' || 
-          To_Char(Floor(Mod(time_remaining, 3600) / 60), 'FM09') || ':' || 
+          To_Char(Floor(time_remaining / 3600), 'FM09') || ':' ||
+          To_Char(Floor(Mod(time_remaining, 3600) / 60), 'FM09') || ':' ||
           To_Char(Mod(time_remaining, 60), 'FM09') AS remaining,
-          To_Char(((sofar / totalwork) * 100), 'FM99.99') || ' %' AS done_pct 
+          To_Char(((sofar / totalwork) * 100), 'FM99.99') || ' %' AS done_pct
         FROM V$SESSION_LONGOPS v, v$session se
-        WHERE v.sid = se.sid 
+        WHERE v.sid = se.sid
         AND v.target = 'schema_name.object_name'
         AND v.username = 'schema_name'
         AND se.sid = '<sid>';
 
 ### Check where the trace file for current session is
 
-        select 
-          u_dump.value   || '/'     || 
-          db_name.value  || '_ora_' || 
-          v$process.spid || 
-          nvl2(v$process.traceid,  '_' || v$process.traceid, null ) 
+        select
+          u_dump.value   || '/'     ||
+          db_name.value  || '_ora_' ||
+          v$process.spid ||
+          nvl2(v$process.traceid,  '_' || v$process.traceid, null )
           || '.trc'  "Trace File"
-        from 
-                     v$parameter u_dump 
+        from
+                     v$parameter u_dump
           cross join v$parameter db_name
-          cross join v$process 
-                join v$session 
+          cross join v$process
+                join v$session
                   on v$process.addr = v$session.paddr
-        where 
-         u_dump.name   = 'user_dump_dest' and 
+        where
+         u_dump.name   = 'user_dump_dest' and
          db_name.name  = 'db_name'        and
          v$session.audsid=sys_context('userenv','sessionid');
-        
+
         (from http://www.adp-gmbh.ch/ora/misc/find_trace_file.html)
 

@@ -1,7 +1,6 @@
 ---
 date: "2015-12-27"
 title: 'Linux: Keeping files in sync with unison'
-layout: post
 ---
 
 In this post I would like to describe how to keep files in sync across two (or more) computers using a central storage and the useful tool `unison`.
@@ -73,7 +72,7 @@ As result of the first synchroniation, `unison` will tell you about the differen
 
 ## Adding a second machine
 
-Adding a second machine to synchronize looks identical to the first. You install the software, set up the SMB mount, configure unison and let it run. However, there may be different results depending on the starting conditions. 
+Adding a second machine to synchronize looks identical to the first. You install the software, set up the SMB mount, configure unison and let it run. However, there may be different results depending on the starting conditions.
 
 If the second machine did not have any files previously, `unison` will download everything initially, and you are fine. In case you already had a - mostly identical - copy of the shared files locally, `unison` may present you with a list of changed / updated files and you can choose how to synchronize them.
 

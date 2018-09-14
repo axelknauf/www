@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Setting up Seafile on an Odroid C2
 date: "2017-01-24"
 ---
@@ -128,7 +127,7 @@ Find out UUID for `fstab`
 ```shell
 blkid /dev/sda1
 ```
-    
+
 Add new mount point for external hard drive
 
 ```shell
@@ -151,7 +150,7 @@ For the Odroid C2 you need the [RaspberryPi package](https://github.com/haiwen/s
 ```shell
 dpkg --add-architecture armhf
 apt-get update
-apt-get install aptitude 
+apt-get install aptitude
 # Reason to use aptitude described at https://forum.seafile.com/t/seafile-server-on-arm64-aarch64-working/1405/3
 aptitude install libc6:armhf libselinux1:armhf
 
@@ -182,7 +181,7 @@ After having started the Seafile server for the first time, open it up in your b
 
 ## Apache
 
-I suggest [running Seafile behind Apache web server](https://manual.seafile.com/deploy/deploy_with_apache.html) (or [Nginx](https://manual.seafile.com/deploy/deploy_with_nginx.html), if you prefer), since it allows us to close all other firewall ports and only leave HTTP (443) open later on. 
+I suggest [running Seafile behind Apache web server](https://manual.seafile.com/deploy/deploy_with_apache.html) (or [Nginx](https://manual.seafile.com/deploy/deploy_with_nginx.html), if you prefer), since it allows us to close all other firewall ports and only leave HTTP (443) open later on.
 
 ## Apache HTTPS
 
@@ -213,7 +212,7 @@ I am using a personal subdomain for my seafile server, so please add your DNS en
 
 Getting a signed HTTPS certificate for your Apache web server can be accomplished by installing and running the [Let's Encrypt](http://letsencrypt.com/) client. Descriptions for a variety of operating system / server software combinations [is available here](https://certbot.eff.org/), I have been using the instructions for [Apache on Ubuntu 126.04](https://certbot.eff.org/#ubuntuxenial-apache):
 
-    apt-get install python-letsencrypt-apache 
+    apt-get install python-letsencrypt-apache
     letsencrypt --apache
 
 The script asks for a couple of details, but if you have set up your Apache with a self-signed certificate, available at an external domain already, it should be able to figure out most of it all by itself.
@@ -292,13 +291,13 @@ before = common.conf
 [Definition]
 _daemon = seaf-server
 failregex = Login attempt limit reached.*, ip: <HOST>
-ignoreregex = 
+ignoreregex =
 ```
 
 Both settings are adapted from [the official documentation](https://manual.seafile.com/security/fail2ban.html).
 
 ## Backups
- 
+
 Backups have a [section in the docs](https://manual.seafile.com/maintain/backup_recovery.html). I have created a simple shell script from the description and put it into the `seafile` user's crontab for a daily routine:
 
 First, create a backup folder (for me it's on the same external hard drive, which may not be the best solution):

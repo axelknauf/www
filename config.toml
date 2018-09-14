@@ -18,7 +18,7 @@ paginate = 10
   # CSS name for highlight.js
   highlightjs = "androidstudio"
   highlightjs_extra_languages = ["yaml"]
-  dateFormat = "2018-09-14, 15:04"
+  dateFormat = "02 Jan 2006"
 
 [menu]
   # Shown in the side menu.
@@ -34,12 +34,6 @@ paginate = 10
     weight = 2
     identifier = "post"
     url = "/post/"
-  [[menu.main]]
-    name = "About"
-    pre = "<i class='fa fa-user fa-fw'></i>"
-    weight = 3
-    identifier = "about"
-    url = "/about/"
 
 [social]
   github = "axelknauf"

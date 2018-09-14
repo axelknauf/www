@@ -1,7 +1,6 @@
 ---
 date: "2015-07-20"
 title: Linux Snippets
-layout: post
 ---
 
 This article collects all kinds of useful tips and tricks around Linux usage, mostly if not all of them about command line tools. Many have been collected over the years, so any advanced user may not find them interesting. But when getting started with the command line, they may still be helpful for new users.
@@ -43,12 +42,12 @@ This article collects all kinds of useful tips and tricks around Linux usage, mo
 ### Repeatedly serve a file using netcat (call with wget http://localhost:12345/)
 
         #!/bin/bash
-        
+
         while true
         do
           { echo -ne "HTTP/1.0 200 OK\r\nContent-Length: $(wc -c &lt;file.txt)\r\n\r\n"; cat file.txt; } | nc -l 12345
         done
-        
+
         exit 0
 
 ### Apply htdigest protection to Apache directory

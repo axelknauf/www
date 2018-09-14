@@ -21,13 +21,13 @@
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <link rel="stylesheet" href="https://www.axelknauf.de/css/side-menu-old-ie.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="/css/side-menu.css">
+  <link rel="stylesheet" href="https://www.axelknauf.de/css/side-menu.css">
   <!--<![endif]-->
 
-  <link rel="stylesheet" href="/css/blackburn.css">
+  <link rel="stylesheet" href="https://www.axelknauf.de/css/blackburn.css">
 
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -41,6 +41,13 @@
  
   
 
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://www.axelknauf.de/img/favicon.ico" type="image/x-icon" />
@@ -62,9 +69,23 @@
 <div id="menu">
 
   
+  <a class="pure-menu-heading brand" href="https://www.axelknauf.de/">Axel Knauf</a>
+
 
   <div class="pure-menu">
     <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://www.axelknauf.de/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://www.axelknauf.de/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
       
     </ul>
   </div>
@@ -121,6 +142,10 @@
     
 
     
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/axelknauf" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
 
     
 
@@ -152,7 +177,7 @@
 
   <div>
   <div class="small-print">
-    <small></small>
+    <small>&copy; 2018. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -168,9 +193,142 @@
 
 <div class="header">
   <h1>Java: Dynamic Event Throttling</h1>
+  <h2></h2>
 </div>
 <div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>20 Dec 2015</time>
+  </div>
+
   
+
+  
+
+  
+
+</div>
+
+  <p>In the code snippet described below I outline an algorithm for dynamically throttle the number of events occurring. In the example I limit the rate of exceptions being thrown, but theoretically this can be any kind of event, e. g. requests coming from some event source or user.</p>
+
+<p></p>
+
+<h2 id="throttling-rate-limiting-for-requests-or-in-this-case-exceptions">Throttling / rate limiting for requests (or in this case, exceptions)</h2>
+
+<pre><code>    import java.util.Random;
+
+    import org.junit.Test;
+
+    public class Bar {
+
+      private static final long rate = 10L; // ten exceptions allowed
+      private static final long per = 60000L; // per minute (= 12.000
+                          // milliseconds)
+      private static long allowance = rate;
+      private static long last = System.currentTimeMillis();
+
+      @Test
+      public void testThresholding() {
+        // Algorithm adapted from:
+        // http://stackoverflow.com/questions/667508/whats-a-good-rate-limiting-algorithm
+        for (int i = 0; i &lt; 120; i++) {
+          try {
+            businessMethod();
+          }
+          catch (RuntimeException e) {
+            long time = System.currentTimeMillis();
+            long passedMs = Math.max(time - last, 1);
+            last = time;
+
+            double coeff = (double) rate / (double) per;
+            long increment = Math.round(passedMs * coeff);
+
+            allowance += increment;
+
+            System.out.printf(&quot;-----------------------------\n&quot;);
+            System.out.printf(&quot;time\t\t:%d\n&quot;, time);
+            System.out.printf(&quot;passed (ms)\t:%d\n&quot;, passedMs);
+            System.out.printf(&quot;increment\t:%d\n&quot;, increment);
+            System.out.printf(&quot;allowance\t:%d\n&quot;, allowance);
+
+            // Uncomment this block to enable throttling to the
+            // defined rate.
+            // if (allowance &gt; rate) {
+            // allowance = rate; // throttle
+            // }
+            // System.out.printf(&quot;throttled\t:%d\n&quot;, allowance);
+
+            if (allowance &lt; 1) {
+              System.out.println(&quot;==&gt; too many exceptions!&quot;);
+            }
+            else {
+              System.out.println(&quot;==&gt; still inside the limit.&quot;);
+              allowance--;
+            }
+
+          }
+        }
+      }
+
+      private void businessMethod() {
+        // How many percent of business calls result in an exception
+        final int exceptionPercent = 10;
+
+        System.out.println(&quot;Business method&quot;);
+
+        int val = new Random().nextInt(101);
+        int delay = new Random().nextInt(1001);
+        try {
+          Thread.sleep(delay);
+          if (val &lt;= exceptionPercent) {
+            throw new RuntimeException(&quot;BusinessException&quot;);
+          }
+        }
+        catch (InterruptedException e) {
+          // ignore
+        }
+      }
+    }
+</code></pre>
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://www.axelknauf.de/post/2015-12-18-using-git-as-svn-client/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://www.axelknauf.de/post/2015-12-18-using-git-as-svn-client/">Using Git as SVN client</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://www.axelknauf.de/post/2015-12-27-linux-unison-synchronization/">Linux: Keeping files in sync with unison</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://www.axelknauf.de/post/2015-12-27-linux-unison-synchronization/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
 </div>
 
 </div>

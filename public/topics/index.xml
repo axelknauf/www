@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Knowledge Base</title>
-    <link>https://www.axelknauf.de/tags/</link>
-    <description>Recent content in Tags on Knowledge Base</description>
+    <title>Topics on Knowledge Base</title>
+    <link>https://www.axelknauf.de/topics/</link>
+    <description>Recent content in Topics on Knowledge Base</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018. All rights reserved.</copyright>
     
-	<atom:link href="https://www.axelknauf.de/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.axelknauf.de/topics/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

@@ -21,13 +21,13 @@
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <link rel="stylesheet" href="https://www.axelknauf.de/css/side-menu-old-ie.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="/css/side-menu.css">
+  <link rel="stylesheet" href="https://www.axelknauf.de/css/side-menu.css">
   <!--<![endif]-->
 
-  <link rel="stylesheet" href="/css/blackburn.css">
+  <link rel="stylesheet" href="https://www.axelknauf.de/css/blackburn.css">
 
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -41,6 +41,13 @@
  
   
 
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://www.axelknauf.de/img/favicon.ico" type="image/x-icon" />
@@ -62,9 +69,23 @@
 <div id="menu">
 
   
+  <a class="pure-menu-heading brand" href="https://www.axelknauf.de/">Axel Knauf</a>
+
 
   <div class="pure-menu">
     <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://www.axelknauf.de/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://www.axelknauf.de/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
       
     </ul>
   </div>
@@ -121,6 +142,10 @@
     
 
     
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/axelknauf" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
 
     
 
@@ -152,7 +177,7 @@
 
   <div>
   <div class="small-print">
-    <small></small>
+    <small>&copy; 2018. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -168,9 +193,137 @@
 
 <div class="header">
   <h1>Linux: Dell XPS 13 9343</h1>
+  <h2></h2>
 </div>
 <div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>24 May 2015</time>
+  </div>
+
   
+
+  
+
+  
+
+</div>
+
+  <p>A couple of days ago I received my new toy: A brand new Dell XPS 13 Developer Edition with pre-installed Ubuntu Linux 14.04 LTS. This post summarizes my experiences through the first couple of days - technical issues, their solutions and my general impressions about the device.</p>
+
+<p></p>
+
+<h2 id="technical-specifications">Technical Specifications</h2>
+
+<p>I ordered the high-end Linux device with the following technical specs. In Germany there are only two Linux versions and since I wanted the bigger hard drive and high DPI display, I chose the more expensive one which came at a price tag of 1,629 EUR.</p>
+
+<ul>
+<li>Intel i7-5500U processor (4 core @ 3GHz, 4 MB Cache),</li>
+<li>13,3&rdquo; QHD+ touch display (3200x1800 resolution),</li>
+<li>8 GB RAM,</li>
+<li>512G SSD HDD</li>
+<li>&hellip;</li>
+</ul>
+
+<p>You can find the full specifications at <a href="http://www.dell.com/de/p/xps-13-9343-laptop/pd?oc=cnx4311&amp;model_id=xps-13-9343-laptop">Dell&rsquo;s website</a>.</p>
+
+<h2 id="first-impressions">First Impressions</h2>
+
+<p>The device makes a robust and high-end impression as can be expected at this price level. There are many detailed reviews of the device around the net. Just fire up your choice of search engine (I recommend <a href="https://duckduckgo.com/?q=+dell+xps+13+review">DuckDuckGo</a>!).</p>
+
+<p>The body is made from aluminium, the palm rests are carbon. The small bevel around the screen makes it feel even bigger than the high resolution display suggests. The display is sharp and crystal clear, touch works as expected - depending on the application even multi-touch gestures, e. g. pinch-to-zoom in the pre-installed Chromium web browser (which does not yet work in Firefox).</p>
+
+<p>I did not really want a touch display in the first place, but for some use cases, it even feels natural and makes sense. E. g. when using Rhythmbox and skipping a track with the &ldquo;next&rdquo; button directly on-screen, or when using the Unity launcher icons to start an application. However, when using the touch screen the whole device starts to wobble, since it is not a tablet computer which rests on the sceen itself. But it is a nice additional input method.</p>
+
+<h2 id="first-issues">First Issues</h2>
+
+<p>No system is perfect, but some issues really caught me off-guard, since a consumer device with a price tag at more than 1,600 EUR should not exhibit teething problems.</p>
+
+<h3 id="hard-drive-partitions">Hard Drive Partitions</h3>
+
+<p>First of all the partitioning scheme uses one large partition for the whole system and user data. Of course there are additional partitions like the UEFI boot partition and Dell&rsquo;s recovery partition. But nevertheless, since the device is labeled as a &ldquo;Developer Edition&rdquo; I would have expected it to be split up, separating the <code>/home</code> partition from the system root.</p>
+
+<p>The system uses UEFI with GPT partitions, so I bootet the device with a USB thumb drive (in my case it was a Ubuntu 15.04 64bit server installation medium, but any recent live image will do, as long as <code>parted</code> and <code>e2fstools</code> are available). Then I resized the partition to free up some space for my new /home partition.</p>
+
+<p>Resizing a partition involves two steps, depending on if you are enlarging or shrinking it. In my case I wanted to shrink the partition, so I first shrank the filesystem inside it using a command similar to:</p>
+
+<pre><code>    resize2fs -p /dev/sda4 100GB
+</code></pre>
+
+<p>The <code>-p</code> flag indicates to show a simple text progress bar. Since the operation may take a while this is really helpful to see that the system is still active doing its work. Before issuing this command, <code>resize2fs</code> may indicate that you should run a <code>fsck</code> first, so I did:</p>
+
+<pre><code>    e2fsck -f /dev/sda4
+</code></pre>
+
+<p>After having resized the file system, I used <code>parted</code> to resize the surrounding partition. Unfortunately I did not have a more user friendly tool (like the ncurses-driven <code>cgdisk</code>) available on my live medium, but <code>parted</code> is an old-school work-horse being able to modify GPTs anyway, even if the commands issued are more complex. I will not go into the details about this step, but be aware of one important issue - which the man page explicitly mentions: Do not resize the partition to be smaller than the filesystem inside! Otherwise your system will become unbootable. I did, so I know.</p>
+
+<p>I ran into this issue due to a calculation problem: parted expects the END of the partition when resizing, not the SIZE! Fortunately, if you did not change the beginning sector of the partition, you can easily resize it in a second run without losing anything. All your data will still be available.</p>
+
+<p>When the partition has its new size, it is best to re-run <code>resize2fs</code> to make the file system use all of the partition. This is the default behavior when not giving any explicit size to the command:</p>
+
+<pre><code>    resize2fs -p /dev/sda4
+</code></pre>
+
+<p>There are many <a href="http://positon.org/resize-an-ext3-ext4-partition">good guides</a> on the net describing this process in more detail, in case you are interested.</p>
+
+<p>With the newly created free space, it is quite easy to set up a new ext4 partition to hold my <code>/home</code> mount point. There is a good description in the <a href="https://help.ubuntu.com/community/Partitioning/Home/Moving">Ubuntu community wiki</a> about the process of moving over all data and the mount point from a previous location. It is quite intuitive and I would not have it done differently.</p>
+
+<h3 id="touch-pad-responsiveness-and-freezes">Touch Pad Responsiveness and Freezes</h3>
+
+<p>Another, even more annoying issue was the usability and instability of the integrated &ldquo;precision&rdquo; touch pad. I would freeze and jump every 5-10 seconds and not take any input for 1-3 seconds. The syslog would then show messages about input data being dropped. This issues seems to be known in the community, and the helpful folks in the IRC channel #xps13 on freenode.net pointed me to <a href="http://www.dell.com/support/article/us/en/19/SLN297219/en">these packages in the Dell knowledge base</a>. Installing them and rebooting (they build a couple of DKMS modules for the current kernel) resolved the issue on 14.04 for me. The touchpad has been working smooth and fine since.</p>
+
+<p>Another alternative is simple to go for a separate installation of a newer distro. In vanilla Ubuntu 15.04 the touchpad issues have already been resolved, and with the new free space on my hard drive (see partitioning above) I had plenty of space to create a separate partition and simply install a 15.04 version alongside the pre-installed LTS.</p>
+
+<p>Barton George (project Sputnik founder at Dell) has a really <a href="http://bartongeorge.net/2015/04/09/4th-gen-dell-xps-13-developer-edition-available/">detailed and thorough blog post about the current (April 2015) state of the XPS 13 on different distributions</a>, in case you intend to run something else.</p>
+
+<h3 id="high-dpi-with-legacy-applications">High DPI with Legacy Applications</h3>
+
+<p>The third issue which bit me was support for high resolution displays with applications which do not directly support them. Unity can be configured to scale all UI widgets by a factor (2x in my case) which makes it look fine on the 3200x1800 display. But unfortunately even the most recent versions of Eclipse still to not support high DPI displays.</p>
+
+<p>Please go and <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=382972">vote on this bug</a> to push the issue.</p>
+
+<p>In order to be able to use Eclipse (<a href="http://scala-ide.org/">Scala IDE</a> in my case) there exists a hack which another annoyed user put together. A comparably primitive <a href="https://github.com/davidglevy/eclipse-icon-enlarger">tool to process all of the archive files</a> inside an Eclipse installation directory and scale the images to double size. Afterwards, Eclipse may not look perfectly fine, but it is usable. So, hat tip to davidglevy!</p>
+
+<h2 id="what-s-next">What&rsquo;s Next?</h2>
+
+<p>After these initial issues, my Dell XPS 13 is a really neat and fine device. Hardware support with Ubuntu is near-perfect (only the HDMI out on the additional 4-in-1 adapter does not work, but I just ordered a mini-DVI-to-HDMI adapter to be able to attach HDMI displays, so I do not really care). Performance is awesome and battery life seems to be really good. I did not put it to a test, but running under average work load (playing music while browsing the web or programming with lots of I/O) seems to yield easy 7h+ of working time with still some power left.</p>
+
+<p>In case you are searching for a portable, well-supported Linux ultrabook, I definitely recommend this device. Assuming you can spend the money, since it is not cheap.</p>
+
+<p>Thanks a lot to the Linux folks at <a href="http://www.dell.com/learn/us/en/555/campaigns/xps-linux-laptop">Dell&rsquo;s project Sputnik</a> for making this device available!</p>
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://www.axelknauf.de/post/2015-07-20-linux-filesystem-snippets/">Linux Snippets</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://www.axelknauf.de/post/2015-07-20-linux-filesystem-snippets/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
 </div>
 
 </div>

@@ -21,13 +21,13 @@
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <link rel="stylesheet" href="https://www.axelknauf.de/css/side-menu-old-ie.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="/css/side-menu.css">
+  <link rel="stylesheet" href="https://www.axelknauf.de/css/side-menu.css">
   <!--<![endif]-->
 
-  <link rel="stylesheet" href="/css/blackburn.css">
+  <link rel="stylesheet" href="https://www.axelknauf.de/css/blackburn.css">
 
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -41,6 +41,13 @@
  
   
 
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://www.axelknauf.de/img/favicon.ico" type="image/x-icon" />
@@ -62,9 +69,23 @@
 <div id="menu">
 
   
+  <a class="pure-menu-heading brand" href="https://www.axelknauf.de/">Axel Knauf</a>
+
 
   <div class="pure-menu">
     <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://www.axelknauf.de/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://www.axelknauf.de/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
       
     </ul>
   </div>
@@ -121,6 +142,10 @@
     
 
     
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/axelknauf" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
 
     
 
@@ -152,7 +177,7 @@
 
   <div>
   <div class="small-print">
-    <small></small>
+    <small>&copy; 2018. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -168,9 +193,192 @@
 
 <div class="header">
   <h1>Linux Snippets</h1>
+  <h2></h2>
 </div>
 <div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>20 Jul 2015</time>
+  </div>
+
   
+
+  
+
+  
+
+</div>
+
+  <p>This article collects all kinds of useful tips and tricks around Linux usage, mostly if not all of them about command line tools. Many have been collected over the years, so any advanced user may not find them interesting. But when getting started with the command line, they may still be helpful for new users.</p>
+
+<p></p>
+
+<h2 id="common-issues">Common issues</h2>
+
+<h3 id="too-many-open-files">&ldquo;Too many open files&rdquo;</h3>
+
+<ul>
+<li>check current limit (only valid for executing user): <code>ulimit -a</code> or specifically <code>ulimit -n</code> (<code>-n</code> refers to &ldquo;number of files&rdquo;)</li>
+<li>set limit with <code>ulimit -n unlimited</code> or <code>ulimit -n 65535</code> (may result in &ldquo;permission denied&rdquo;)</li>
+<li>on Fedora: edit <code>/etc/security/limits.conf</code></li>
+</ul>
+
+<h2 id="common-filesystem-tasks">Common filesystem tasks</h2>
+
+<h3 id="list-folders-by-size-descending-recursively">List folders by size descending recursively</h3>
+
+<pre><code>    find . -type d -exec du -b {} \; | sort -nr | uniq
+</code></pre>
+
+<h3 id="latest-changed-files-one-folder-deep-search">Latest changed files (one folder deep search)</h3>
+
+<pre><code>    find . -maxdepth 2 -type f -exec stat -c %y_%n {} \; | sort -r | less
+</code></pre>
+
+<h3 id="10-latest-changed-files-recursively">10 latest changed files (recursively)</h3>
+
+<pre><code>    find . -type f -printf '%TF_%TT %p \n' | sort -r | head -n 10
+</code></pre>
+
+<h3 id="change-file-encoding-e-g-from-utf-8">Change file encoding (e. g. from UTF-8)</h3>
+
+<pre><code>    recode -f ascii &lt;file&gt;
+</code></pre>
+
+<h2 id="networking-and-web">Networking and Web</h2>
+
+<h3 id="use-kernel-prerouting-to-direct-traffic-from-port-80-to-8080-e-g-for-fronting-tomcat">Use kernel prerouting to direct traffic from port 80 to 8080, e. g. for fronting tomcat</h3>
+
+<pre><code>    iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination :8080
+</code></pre>
+
+<h3 id="repeatedly-serve-a-file-using-netcat-call-with-wget-http-localhost-12345">Repeatedly serve a file using netcat (call with wget <a href="http://localhost:12345/">http://localhost:12345/</a>)</h3>
+
+<pre><code>    #!/bin/bash
+
+    while true
+    do
+      { echo -ne &quot;HTTP/1.0 200 OK\r\nContent-Length: $(wc -c &amp;lt;file.txt)\r\n\r\n&quot;; cat file.txt; } | nc -l 12345
+    done
+
+    exit 0
+</code></pre>
+
+<h3 id="apply-htdigest-protection-to-apache-directory">Apply htdigest protection to Apache directory</h3>
+
+<h4 id="required-modules">Required modules</h4>
+
+<ul>
+<li><code>mod_authz_user</code></li>
+<li><code>mod_auth_digest</code></li>
+<li><code>mod_authn_file</code></li>
+</ul>
+
+<h4 id="configuration">Configuration</h4>
+
+<pre><code>    &lt;Location /path/to/protect&gt;
+       AuthType Digest
+       AuthName &quot;Protected Area&quot;
+       AuthDigestDomain /path/to/protect http://11.22.33.44/path/to/protect
+       AuthDigestProvider file
+       AuthUserFile /etc/apache2/conf/digest_pw
+       Require valid-user
+    &lt;/Location&gt;
+</code></pre>
+
+<h4 id="create-digest-pw-file">Create digest_pw file</h4>
+
+<pre><code>    htdigest -c /etc/apache2/conf/digest_pw &quot;Protected Area&quot; username
+    =&gt; will be asked for password, file created
+</code></pre>
+
+<h3 id="upload-multiple-files-via-ftp-which-is-an-interactive-tool">Upload multiple files via FTP (which is an interactive tool)</h3>
+
+<p>Requires curlftpfs and fuse + rsync</p>
+
+<pre><code>    #!/bin/bash
+
+    SOURCE_DIR=./dist/
+    HOST=some.host.com
+    USER=username
+    PASS=passsword
+    TARGET_DIR=/target/
+    MOUNT_POINT=./mnt/
+    TMP_DIR=$(mktemp -d)
+
+    #########################################################################
+    ## Abort if mount point does not exist
+    if [ ! -d ${MOUNT_POINT} ];
+    then
+      echo &quot;Target mount point directory does not exist, aborting.&quot;
+      exit 1
+    fi
+
+    #########################################################################
+    ## Mount remote file system locally
+    curlftpfs -o user=${USER}:${PASS} ${HOST} ${MOUNT_POINT} || exit 1
+
+    #########################################################################
+    ## Transfer files incrementally
+    if [ -d &quot;${MOUNT_POINT}/${TARGET_DIR}&quot; ]
+    then
+        rsync -rtuv --modify-window=1 --delete --no-perms --size-only --temp-dir=${TMP_DIR} ${SOURCE_DIR}/ ${MOUNT_POINT}/${TARGET_DIR}/
+    else
+        echo &quot;Target remote directory does not exist, aborting.&quot;
+    fi
+
+    #########################################################################
+    ## Unmount remote file system
+    fusermount -u ${MOUNT_POINT}
+
+    #########################################################################
+    ## Remove temporary directory
+    if [ -d &quot;${TMP_DIR}&quot; ];
+    then
+        rm -rf ${TMP_DIR}
+    fi
+
+    exit 0
+</code></pre>
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://www.axelknauf.de/post/2015-05-24-xps13-9343/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://www.axelknauf.de/post/2015-05-24-xps13-9343/">Linux: Dell XPS 13 9343</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://www.axelknauf.de/post/2015-10-20-oracle-admin-snippets/">Oracle Administration Snippets</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://www.axelknauf.de/post/2015-10-20-oracle-admin-snippets/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
 </div>
 
 </div>

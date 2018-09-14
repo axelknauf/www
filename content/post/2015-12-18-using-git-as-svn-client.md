@@ -1,7 +1,6 @@
 ---
 date: "2015-12-18"
 title: Using Git as SVN client
-layout: post
 ---
 
 Using Git as SVN client is quite easy, since the functionality has been built-in already, named the "git-svn" bridge. It boils down to an additional Git command which can be used in the form `git svn <command>`.
@@ -32,17 +31,17 @@ Instead of `fetch/merge`, `pull` and `push`, `git-svn` uses the two commands `sv
 
         # Starting situation
         # You are in branch "dev" with newer changes than in "master"
-        
+
         # SVN UPDATE == GIT SVN REBASE
         # First, switch to master branch, fetch an SVN update and rebase the "dev" branch
         git checkout master
-        git svn rebase 
+        git svn rebase
         git rebase master dev
-        
+
         # SVN COMMIT == GIT SVN DCOMMIT
         # Now you are back in the "dev" branch (rebase switches the branch automatically)
         # which is up-to-date with the most recent SVN changes.
-        # Now, simply merge the local changes into master, then commit them into the SVN 
+        # Now, simply merge the local changes into master, then commit them into the SVN
         # repo using "dcommit"
         git checkout master
         git merge dev
@@ -57,16 +56,16 @@ In case you want (or need) to work with SVN branches in your local Git repo, thi
         # Synchronize all SVN branches and tags with the local Git repo
         git checkout master
         git svn fetch --fetch-all
-        
+
         # Locally check out the SVN branch as Git branch and work in it
         git checkout -b <new-git-branch-name> <remotes/svn-branch-name>
         vi <file>
         git add <file>
         git commit -m "Commit message"
-        
+
         # Fetch SVN updates if any (otherwise commit may fail)
         git svn rebase
-        
+
         # Commit all changes from local Git branch to remote SVN repository branch
         # (dcommit stands for "delta commit", so the SVN repo will reflect all
         # commits as you see them in your local Git branch - so it may be a good
@@ -80,7 +79,7 @@ You can use all Git magic, branches, merges etc. here as usual.
 
 If you want to merge commits or fixes between SVN branches, you can use `git cherry-pick` which is a (tremendously) useful tool. Assuming you have a master branch (corresponding to SVN trunk) and another SVN branch locally, then this can be done git-natively:
 
-        # Checkout target branch (using the branch name of the local git repo, which may 
+        # Checkout target branch (using the branch name of the local git repo, which may
         # deviate from the branch name in the remote SVN repo)
         git checkout <git-branch-name>
         git cherry-pick -x <hash>
