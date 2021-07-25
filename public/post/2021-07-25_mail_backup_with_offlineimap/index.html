@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.54.0" />
 
-  <title>A Walk in the Park &middot; Knowledge Base</title>
+  <title>Backup IMAP mails with offlineimap &middot; Knowledge Base</title>
 
   
   
@@ -192,7 +192,7 @@
 
 
 <div class="header">
-  <h1>A Walk in the Park</h1>
+  <h1>Backup IMAP mails with offlineimap</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -201,7 +201,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>23 Jul 2021</time>
+    <time>25 Jul 2021</time>
   </div>
 
   
@@ -214,46 +214,69 @@
 
   
 
-<h1 id="a-walk-in-the-park">A Walk in the Park</h1>
+<h1 id="motivation">Motivation</h1>
 
-<h2 id="scenario">Scenario</h2>
+<p>My <a href="https://posteo.de">email provider</a> is awesome, but the default mailbox size is 2G. In fact, this is a good thing because it forces me to clean up my mails from time to time. Today is such a day. But since I do not want to lose my old mail archives I wanted to create a backup of my full IMAP account first. Here&rsquo;s what I did.</p>
 
-<p>Ever wondered why you run into so many people when going for a walk in the park? Me, too. What struck me as remarkable was that I would not only encounter a lot of individuals, but the number of &lsquo;collisions&rsquo; with more than one other pedestrians <em>at the same time</em>! So I thought I&rsquo;ll try to simulate a walk in the park and see what the numbers say.</p>
+<h1 id="offlineimap">OfflineIMAP</h1>
 
-<h2 id="simulation">Simulation</h2>
+<p><a href="http://offlineimap.org">offlineimap</a> is the perfect tool for the job. It&rsquo;s designed to download an IMAP account to local Maildir (or other format) folders. Synchronising my account was as simple as installing it and creating a minimalist configuration. I am running Debian stable (buster), so the commands required may vary for you.</p>
 
-<p>Here you go:</p>
+<pre><code>sudo apt install offlineimap
 
-<ul>
-<li>Simulation: <a href="https://www.axelknauf.de/~axel/walking.html">https://www.axelknauf.de/~axel/walking.html</a></li>
-<li>Source: <a href="https://www.axelknauf.de/~axel/walking.js">https://www.axelknauf.de/~axel/walking.js</a></li>
-</ul>
+mkdir ~/backups/mails-202107
+cp /usr/share/doc/offlineimap/examples/offlineimap.conf.minimal ~/.offlineimaprc
+vim $!
 
-<p>(Please don&rsquo;t judge me for the code quality, it has just been hacked together for the fun of it.)</p>
+# edit config (see below) and then run:
+offlineimap
 
-<h2 id="results">Results</h2>
+# enter password when asked, then wait until it's done
+</code></pre>
 
-<ul>
-<li>Over the course of a 5km walk with ~70 other pedestrians, I would:
+<p>As usual, the <a href="https://wiki.archlinux.org/title/OfflineIMAP">Arch Wiki</a> has some great documentation. Here&rsquo;s my configuration:</p>
 
-<ul>
-<li>have around 50 encounters with individuals</li>
-<li>have around 10 encounters with more than one other person at the same time!</li>
-</ul></li>
-</ul>
+<pre><code>[general]
+accounts = posteo
+
+[Account posteo]
+localrepository = Local
+remoterepository = Remote
+
+[Repository Local]
+type = Maildir
+localfolders = ~/backups/mails-202107
+
+[Repository Remote]
+type = IMAP
+remotehost = posteo.de
+remoteuser = &lt;my email address&gt;
+ssl=yes
+sslcacertfile=OS-DEFAULT
+</code></pre>
+
+<p>That&rsquo;s it. Atferwards I could securely delete all the remote stuff I did not need anymore.</p>
+
+<h1 id="reading-mails">Reading mails</h1>
+
+<p>If I want to read mails from the backup, I can simply open them up in <a href="http://mutt.org">mutt</a>:</p>
+
+<pre><code>cd ~/backups/mails-202107
+mutt -R -f INBOX
+</code></pre>
 
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://www.axelknauf.de/post/2017-01-24-setting-up-seafile-on-odroid-c2/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://www.axelknauf.de/post/2021-07-23_a_walk_in_the_park/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://www.axelknauf.de/post/2017-01-24-setting-up-seafile-on-odroid-c2/">Setting up Seafile on an Odroid C2</a>
+      <a href="https://www.axelknauf.de/post/2021-07-23_a_walk_in_the_park/">A Walk in the Park</a>
     </nav>
     
   </div>
@@ -262,14 +285,8 @@
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="https://www.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/">Backup IMAP mails with offlineimap</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://www.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

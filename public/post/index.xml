@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2021. All rights reserved.</copyright>
-    <lastBuildDate>Fri, 23 Jul 2021 09:12:52 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 25 Jul 2021 09:13:30 +0200</lastBuildDate>
     
 	<atom:link href="https://www.axelknauf.de/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Backup IMAP mails with offlineimap</title>
+      <link>https://www.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/</link>
+      <pubDate>Sun, 25 Jul 2021 09:13:30 +0200</pubDate>
+      
+      <guid>https://www.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/</guid>
+      <description>Motivation My email provider is awesome, but the default mailbox size is 2G. In fact, this is a good thing because it forces me to clean up my mails from time to time. Today is such a day. But since I do not want to lose my old mail archives I wanted to create a backup of my full IMAP account first. Here&amp;rsquo;s what I did.
+OfflineIMAP offlineimap is the perfect tool for the job.</description>
+    </item>
     
     <item>
       <title>A Walk in the Park</title>
