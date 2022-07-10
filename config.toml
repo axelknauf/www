@@ -1,9 +1,9 @@
 baseURL = "https://www.axelknauf.de/"
 languageCode = "en-us"
-title = "Knowledge Base"
+title = "Braindumpling"
 theme = "blackburn"
 author = "Axel Knauf"
-copyright = "&copy; 2021. All rights reserved."
+copyright = "&copy; 2022. All rights reserved."
 canonifyurls = true
 paginate = 10
 
