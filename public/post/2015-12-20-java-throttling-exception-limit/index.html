@@ -5,9 +5,9 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.54.0" />
+  <meta name="generator" content="Hugo 0.80.0" />
 
-  <title>Java: Dynamic Event Throttling &middot; Knowledge Base</title>
+  <title>Java: Dynamic Event Throttling &middot; Braindumpling</title>
 
   
   
@@ -177,7 +177,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2021. All rights reserved.</small>
+    <small>&copy; 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -213,9 +213,7 @@
 </div>
 
   <p>In the code snippet described below I outline an algorithm for dynamically throttle the number of events occurring. In the example I limit the rate of exceptions being thrown, but theoretically this can be any kind of event, e. g. requests coming from some event source or user.</p>
-
-<h2 id="throttling-rate-limiting-for-requests-or-in-this-case-exceptions">Throttling / rate limiting for requests (or in this case, exceptions)</h2>
-
+<h2 id="throttling--rate-limiting-for-requests-or-in-this-case-exceptions">Throttling / rate limiting for requests (or in this case, exceptions)</h2>
 <pre><code>    import java.util.Random;
 
     import org.junit.Test;

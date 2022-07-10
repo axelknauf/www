@@ -5,9 +5,9 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.54.0" />
+  <meta name="generator" content="Hugo 0.80.0" />
 
-  <title>Linux: Self-signed certificate for Apache SSL &middot; Knowledge Base</title>
+  <title>Linux: Self-signed certificate for Apache SSL &middot; Braindumpling</title>
 
   
   
@@ -177,7 +177,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2021. All rights reserved.</small>
+    <small>&copy; 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -213,82 +213,51 @@
 </div>
 
   <p>This article details how to generate an SSL certificate in order to encrypt traffic on an Aache hosted site using HTTPS. The certificate will be self-signed, meaning browsers will still show a warning message when accessing the page.</p>
-
 <p>This setup is not secure and all code is given as examples only. It is intended for development purposes only. If you want to run your site encrypted with a real certificate, you may want to take a look at <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a>.</p>
-
 <h1 id="assumptions">Assumptions</h1>
-
 <p>This guide refers to Apache 2.2 using OpenSSL to generate the certificate - the same can be achieved for later versions of Apache or even using OpenSSL on Cygwin on Windows.</p>
-
 <ul>
 <li>Apache 2.2 with mod_ssl support</li>
 <li>OpenSSL already installed (<code>sudo apt-get install openssl</code>)</li>
 <li>Editor and browser for testing and configuration</li>
 </ul>
-
-<p>I am assuming that you are using the domaim &ldquo;www.example.com&rdquo; for your virtual host. This becomes relevant for the &ldquo;Common Name&rdquo; (CN) in the certificate signing request (CSR) below. Please adust this where needed.</p>
-
+<p>I am assuming that you are using the domaim &ldquo;<a href="http://www.example.com">www.example.com</a>&rdquo; for your virtual host. This becomes relevant for the &ldquo;Common Name&rdquo; (CN) in the certificate signing request (CSR) below. Please adust this where needed.</p>
 <h1 id="how-to-create-a-new-certificate">How to create a new certificate</h1>
-
 <p>On all prompts you can easily press return to use the default setting, unless I am giving other instructions.</p>
-
 <p>These steps are necessary:</p>
-
 <h2 id="create-folder-and-certification-authority-ca">Create folder and Certification Authority (CA)</h2>
-
 <p>I am using a subfolder inside Apaches <code>conf</code> folder which allows easy configuration from <code>httpd.conf</code>.</p>
-
 <pre><code>    $ cd $APACHE_HOME/conf
     $ mkdir certs
     $ cd certs
     $ /usr/ssl/misc/CA.pl -newca
 </code></pre>
-
 <p>Passphrase: &ldquo;example&rdquo;</p>
-
 <p>Common name: &ldquo;my-example-ca&rdquo;</p>
-
 <h2 id="create-server-key">Create server key</h2>
-
 <pre><code>    $ openssl genrsa -des3 -out www.example.com.pem 2048
 </code></pre>
-
 <p>Passphrase: &ldquo;example&rdquo;</p>
-
 <h2 id="create-certificate-signing-request-csr">Create Certificate Signing Request (CSR)</h2>
-
 <p>Using the newly generated server key above.</p>
-
 <pre><code>    $ openssl req -new -key www.example.com.pem -out www.example.com.csr
 </code></pre>
-
-<p>Common Name &ldquo;www.example.com&rdquo;, it must match the domain name of your virtual host!</p>
-
+<p>Common Name &ldquo;<a href="http://www.example.com">www.example.com</a>&rdquo;, it must match the domain name of your virtual host!</p>
 <h2 id="create-signed-certificate-using-ca-and-csr">Create signed certificate using CA and CSR</h2>
-
 <pre><code>    $ openssl ca -in www.example.com.csr -out www.example.com-cert.pem
 </code></pre>
-
 <h2 id="remove-passphrase-from-server-key">Remove passphrase from server key</h2>
-
 <p>Since Apache does not support passphrases for server keys (on Windows at least), we have to remove any passphrase used above.</p>
-
 <pre><code>    $ openssl rsa -in www.example.com.pem -out www.example.com-nopassphrase.pem
 </code></pre>
-
 <h2 id="configure-apache">Configure Apache</h2>
-
-<h3 id="edit-httpd-conf">Edit <code>httpd.conf</code></h3>
-
+<h3 id="edit-httpdconf">Edit <code>httpd.conf</code></h3>
 <ul>
 <li>Uncomment &ldquo;LoadModule ssl_module&rdquo; directive</li>
 <li>Uncomment include for <code>httpd-ssl.conf</code></li>
 </ul>
-
-<h3 id="edit-extra-httpd-ssl-conf">Edit <code>extra/httpd-ssl.conf</code></h3>
-
+<h3 id="edit-extrahttpd-sslconf">Edit <code>extra/httpd-ssl.conf</code></h3>
 <h4 id="general-settings">General settings</h4>
-
 <pre><code>        Listen 443
         AddType application/x-x509-ca-cert .crt
         AddType application/x-pkcs7-crl    .crl
@@ -297,11 +266,8 @@
         SSLSessionCacheTimeout  300
         SSLMutex default
 </code></pre>
-
 <p>You will have to adjust the path to your Apache installation.</p>
-
 <h4 id="create-virtualhost-for-ssl">Create VirtualHost for SSL</h4>
-
 <pre><code>        NameVirtualHost www.example.com:443
         &lt;VirtualHost www.example.com:443&gt;
 
@@ -321,54 +287,36 @@
 
         &lt;/VirtualHost&gt;
 </code></pre>
-
 <p>You have to adjust the paths for the Apache installation and both &ldquo;SSLCertificateFile&rdquo; and &ldquo;SSLCertificateKeyFile&rdquo;. In addition, you have to adjust the hostname, of course.</p>
-
 <h4 id="restart-apache">Restart Apache</h4>
-
 <p>Then, try <a href="https://www.example.com/">https://www.example.com/</a></p>
-
 <h1 id="renew-an-existing-certificate">Renew an existing certificate</h1>
-
 <p>If the certifcate expired (usually it is valid for a single year), it can be renewed using the following steps. We are using the same tools as above, and the examples assume you are in the &ldquo;certs&rdquo; folder of your Apache configuration.</p>
-
 <h2 id="remove-old-certifcate-from-store">Remove old certifcate from store</h2>
-
-<p>Find out the ID of the current certifcate, it is part of <code>demoCA/index.txt</code> with your Common Name (above: &ldquo;www.example.com&rdquo;):</p>
-
+<p>Find out the ID of the current certifcate, it is part of <code>demoCA/index.txt</code> with your Common Name (above: &ldquo;<a href="http://www.example.com">www.example.com</a>&rdquo;):</p>
 <pre><code>    $ less demoCA/index.txt
     V       171207033254Z           CC61BF56E46A51BE        unknown /C=AU/ST=Some-State/O=Internet Widgits Pty Ltd/CN=my-example-ca
     V       151208033429Z           CC61BF56E46A51BF        unknown /C=AU/ST=Some-State/O=Internet Widgits Pty Ltd/CN=www.example.com    &lt;--------------
 </code></pre>
-
 <p>In this case it is the second one, the common name is at the very end and we note the ID &ldquo;CC61BF56E46A51BF&rdquo; (third column). There if a file with this ID as name in the <code>newcerts</code> folder:</p>
-
 <pre><code>    $ ls -l demoCA/newcerts
     ..
     -rw-r--r-- 1 user group 2999  8. Dez 2014  CC61BF56E46A51BE.pem
     -rw-r--r-- 1 user group 3891  8. Dez 2014  CC61BF56E46A51BF.pem   &lt;------------
 </code></pre>
-
 <p>When we have the file, we can revoke the certifcate using the passphrase from above:</p>
-
 <pre><code>    $ openssl ca -revoke demoCA/newcerts/CC61BF56E46A51BF.pem
     Using configuration from /usr/ssl/openssl.cnf
     Enter pass phrase for ./demoCA/private/cakey.pem:
     Revoking Certificate CC61BF56E46A51BF.
     Data Base Updated
 </code></pre>
-
 <h2 id="create-a-new-certificate">Create a new certificate</h2>
-
 <p>Afterwards a new one can be generated using the existing CSR from the initial creation. If you do not have this file anymore, you can follow the steps above to create a new one.</p>
-
 <pre><code>    $ openssl ca -in www.example.com.csr -out www.example.com-cert.pem
 </code></pre>
-
 <p>If you want to use this new certificate in Apache, you will have to remove the passphrase again. Afterwards, place the new certificate file in the Apache config folder and restart the server.</p>
-
 <h1 id="links-and-documentation">Links and Documentation</h1>
-
 <ul>
 <li>Official Apache 2.2 SSL docs: <a href="http://httpd.apache.org/docs/2.2/en/ssl/">http://httpd.apache.org/docs/2.2/en/ssl/</a></li>
 <li>Let&rsquo;s Encrypt open CA: <a href="https://letsencrypt.org/">https://letsencrypt.org/</a></li>

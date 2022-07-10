@@ -5,9 +5,9 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.54.0" />
+  <meta name="generator" content="Hugo 0.80.0" />
 
-  <title>Backup IMAP mails with offlineimap &middot; Knowledge Base</title>
+  <title>Backup IMAP mails with offlineimap &middot; Braindumpling</title>
 
   
   
@@ -177,7 +177,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2021. All rights reserved.</small>
+    <small>&copy; 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -212,16 +212,10 @@
 
 </div>
 
-  
-
-<h1 id="motivation">Motivation</h1>
-
+  <h1 id="motivation">Motivation</h1>
 <p>My <a href="https://posteo.de">email provider</a> is awesome, but the default mailbox size is 2G. In fact, this is a good thing because it forces me to clean up my mails from time to time. Today is such a day. But since I do not want to lose my old mail archives I wanted to create a backup of my full IMAP account first. Here&rsquo;s what I did.</p>
-
 <h1 id="offlineimap">OfflineIMAP</h1>
-
 <p><a href="http://offlineimap.org">offlineimap</a> is the perfect tool for the job. It&rsquo;s designed to download an IMAP account to local Maildir (or other format) folders. Synchronising my account was as simple as installing it and creating a minimalist configuration. I am running Debian stable (buster), so the commands required may vary for you.</p>
-
 <pre><code>sudo apt install offlineimap
 
 mkdir ~/backups/mails-202107
@@ -233,9 +227,7 @@ offlineimap
 
 # enter password when asked, then wait until it's done
 </code></pre>
-
 <p>As usual, the <a href="https://wiki.archlinux.org/title/OfflineIMAP">Arch Wiki</a> has some great documentation. Here&rsquo;s my configuration:</p>
-
 <pre><code>[general]
 accounts = posteo
 
@@ -254,13 +246,9 @@ remoteuser = &lt;my email address&gt;
 ssl=yes
 sslcacertfile=OS-DEFAULT
 </code></pre>
-
 <p>That&rsquo;s it. Atferwards I could securely delete all the remote stuff I did not need anymore.</p>
-
 <h1 id="reading-mails">Reading mails</h1>
-
 <p>If I want to read mails from the backup, I can simply open them up in <a href="http://mutt.org">mutt</a>:</p>
-
 <pre><code>cd ~/backups/mails-202107
 mutt -R -f INBOX
 </code></pre>

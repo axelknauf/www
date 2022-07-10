@@ -5,9 +5,9 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.54.0" />
+  <meta name="generator" content="Hugo 0.80.0" />
 
-  <title>Linux: Keeping files in sync with unison &middot; Knowledge Base</title>
+  <title>Linux: Keeping files in sync with unison &middot; Braindumpling</title>
 
   
   
@@ -177,7 +177,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2021. All rights reserved.</small>
+    <small>&copy; 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -213,94 +213,57 @@
 </div>
 
   <p>In this post I would like to describe how to keep files in sync across two (or more) computers using a central storage and the useful tool <code>unison</code>.</p>
-
 <h2 id="preparations">Preparations</h2>
-
 <p>In order to synchronize files across machines, you need the following:</p>
-
 <ul>
 <li>a folder on each machine which shall serve as synchronization point</li>
 <li>a central storage, e. g. an SMB file share or some similar storage (may be SSH, ..)</li>
 <li>the relevant software on each machine, details below</li>
 </ul>
-
 <h3 id="required-software">Required Software</h3>
-
 <p>I am running Ubuntu 15.10 on each machine, but the packages required are available for many distros, so this may easily work for you.</p>
-
 <pre><code>    sudo apt-get install cifs-utils unison-gtk
 </code></pre>
-
 <p>I am using <code>cifs-utils</code> to locally mount a centrally-shared SMB drive (actually a USB thumb drive plugged into my Fritz Box and shared via SMBFS from there).</p>
-
 <h2 id="setting-up-cifs">Setting up CIFS</h2>
-
 <p>In order to be able to locally mount the SMB share you first need to make it available on your host. Im my case - I am using a Fritz Box - this was quite easy, I will not write about this here. After having made it available on the network, you can mount it locally using these steps (derived from <a href="http://askubuntu.com/a/157140">this answer</a>):</p>
-
 <p>First, create a credentials file in your home folder:</p>
-
 <pre><code>    vim ~/.smbcredentials
 </code></pre>
-
 <p>Put your configuration settings in there:</p>
-
 <pre><code>    username=username
     password=secret_password
     domain=workgroup_name
 </code></pre>
-
 <p>Make sure the file is only readable by your own user:</p>
-
 <pre><code>    chmod 600 ~/.smbcredentials
 </code></pre>
-
 <p>Then, create a mount point where you want to have it available on your machine:</p>
-
 <pre><code>    sudo mkdir /media/shared
 </code></pre>
-
 <p>Having set up the SMB credentials and the mount point, you can add the file share to your <code>/etc/fstab</code> so it gets automatically mounted each time you boot:</p>
-
 <pre><code>    sudoedit /etc/fstab
 </code></pre>
-
 <p>Add a line similar to the following - you will have to adjust the values to fit your own paths and UID/GID. If you are unsure about the IDs, check the output of <code>id</code> for your user:</p>
-
 <pre><code>    //server/share-name /media/shared cifs credentials=/home/username/.smbcredentials,uid=1000,gid=1000 0 0
 </code></pre>
-
 <p>If all pieces fit together you can now mount the share with</p>
-
 <pre><code>    sudo mount -a
 </code></pre>
-
 <p>Now you have the remote folder mounted locally. Next we create a local folder in your home which shall be kept in sync with the remote one:</p>
-
 <pre><code>    mkdir ~/shared
 </code></pre>
-
 <h2 id="setting-up-unison">Setting up <code>unison</code></h2>
-
 <p>Setting up unison is straight-forward. Usually being a CLI user, I went for the GTK UI this time. If your have not run unison before, it will automatically launch the new profile wizard to guide you through the process. Create a new profile, choose <code>~/shared</code> as first folder, then <code>/media/shared</code> as second folder and make sure to check the box for FAT FS compatibility, since the SMB share does not know about unix permissions and will yield errors if you omit it. In case you do, simple re-create the profile with the correct settings this time.</p>
-
 <p>After having created the profile, unison will attempt an initial synchronization. You will get a warning message telling that there have been no archive folders, yet. This is okay, they are created when you first run unison and trigger the synchronization.</p>
-
 <p>As result of the first synchroniation, <code>unison</code> will tell you about the differences, before anything happens. You can review the list of actions and if all is well, simple click on the &ldquo;Go!&rdquo; button to start the synchronization. During the first synch, it may well take some time, depending on the amount of data transferred and your network connection speed.</p>
-
 <h2 id="adding-a-second-machine">Adding a second machine</h2>
-
 <p>Adding a second machine to synchronize looks identical to the first. You install the software, set up the SMB mount, configure unison and let it run. However, there may be different results depending on the starting conditions.</p>
-
 <p>If the second machine did not have any files previously, <code>unison</code> will download everything initially, and you are fine. In case you already had a - mostly identical - copy of the shared files locally, <code>unison</code> may present you with a list of changed / updated files and you can choose how to synchronize them.</p>
-
 <h2 id="synchronization-strategies">Synchronization Strategies</h2>
-
 <p>As described in <a href="http://www.cis.upenn.edu/~bcpierce/unison/download/releases/stable/unison-manual.html">the official documentation</a>, the best strategy to keep multiple machines in sync is to set up a spokes-and-hub network. This means that each client machine synchronizes with a central hub, much like many centrally managed SCMs work. Unison itself only supports two-node-synchronization, but running a central server like the SMB share above, solves this issue easily.</p>
-
 <p>I hope this guide was useful. Happy hacking!</p>
-
 <h2 id="links-and-docs">Links and docs</h2>
-
 <ul>
 <li>Official homepage: <a href="http://www.cis.upenn.edu/~bcpierce/unison/docs.html">http://www.cis.upenn.edu/~bcpierce/unison/docs.html</a></li>
 <li>Documentation below: <a href="http://www.cis.upenn.edu/~bcpierce/unison/download/releases/stable/unison-manual.html">http://www.cis.upenn.edu/~bcpierce/unison/download/releases/stable/unison-manual.html</a></li>

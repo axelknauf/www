@@ -5,9 +5,9 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.54.0" />
+  <meta name="generator" content="Hugo 0.80.0" />
 
-  <title>Using Git as SVN client &middot; Knowledge Base</title>
+  <title>Using Git as SVN client &middot; Braindumpling</title>
 
   
   
@@ -177,7 +177,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2021. All rights reserved.</small>
+    <small>&copy; 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -213,32 +213,21 @@
 </div>
 
   <p>Using Git as SVN client is quite easy, since the functionality has been built-in already, named the &ldquo;git-svn&rdquo; bridge. It boils down to an additional Git command which can be used in the form <code>git svn &lt;command&gt;</code>.</p>
-
 <h2 id="working-with-git-svn">Working with <code>git-svn</code></h2>
-
 <h3 id="checkout-a-k-a-clone">Checkout a. k. a. Clone</h3>
-
 <p>Assuming you have an SVN repo at <a href="http://svn.example.com/my/repo">http://svn.example.com/my/repo</a> with all standard paths:</p>
-
 <ul>
 <li><a href="http://svn.example.com/my/repo/trunk">http://svn.example.com/my/repo/trunk</a> - Trunk</li>
 <li><a href="http://svn.example.com/my/repo/branches">http://svn.example.com/my/repo/branches</a> - SVN Branches</li>
 <li><a href="http://svn.example.com/my/repo/tags">http://svn.example.com/my/repo/tags</a> - SVN Tags</li>
 </ul>
-
 <p>Then you can easily clone the full SVN repo with all its history by running:</p>
-
 <pre><code>git svn clone --stdlayout &lt;url&gt;
 </code></pre>
-
 <p>This process can take some time since Git clones all history to keep it in the local working copy. In case the history is quite large and you do not need all of it, you can limit the checkout to the most recent revisions using the parameter <code>--revisions (-r)</code>.</p>
-
 <p>Afterwards you have a local Git repo like usual, you are in the master branch and you can apply any local workflow you are used to - except for <code>push</code> and <code>pull</code>, I will outline their differences below.</p>
-
-<h3 id="svn-update-commit">SVN Update &amp; Commit</h3>
-
+<h3 id="svn-update--commit">SVN Update &amp; Commit</h3>
 <p>Instead of <code>fetch/merge</code>, <code>pull</code> and <code>push</code>, <code>git-svn</code> uses the two commands <code>svn rebase</code> and <code>svn dcommit</code>. Assuming you use the master branch to synchronize your work with the SVN repo (after the checkout above the SVN remotes should already be configured correctly), a usual workflow may look like this:</p>
-
 <pre><code>    # Starting situation
     # You are in branch &quot;dev&quot; with newer changes than in &quot;master&quot;
 
@@ -257,13 +246,9 @@
     git merge dev
     git svn dcommit
 </code></pre>
-
 <p>Important: Using <code>git svn rebase</code> in master only pulls changes from SVN trunk, so if there are any new tags or branches in the SVN repo, you will not (yet) see them in you local Git repo. How to use SVN branches and tags is shown below.</p>
-
 <h3 id="working-with-svn-branches">Working with SVN branches</h3>
-
 <p>In case you want (or need) to work with SVN branches in your local Git repo, this can be accomplished quite easily. The workflow is similar to above, you only need to fetch the relevant branches from your SVN remote explicitly from the SVN repo.</p>
-
 <pre><code>    # Synchronize all SVN branches and tags with the local Git repo
     git checkout master
     git svn fetch --fetch-all
@@ -284,23 +269,16 @@
     # committing).
     git svn dcommit
 </code></pre>
-
 <p>You can use all Git magic, branches, merges etc. here as usual.</p>
-
 <h3 id="merges-between-trunk-and-branch">Merges between Trunk and Branch</h3>
-
 <p>If you want to merge commits or fixes between SVN branches, you can use <code>git cherry-pick</code> which is a (tremendously) useful tool. Assuming you have a master branch (corresponding to SVN trunk) and another SVN branch locally, then this can be done git-natively:</p>
-
 <pre><code>    # Checkout target branch (using the branch name of the local git repo, which may
     # deviate from the branch name in the remote SVN repo)
     git checkout &lt;git-branch-name&gt;
     git cherry-pick -x &lt;hash&gt;
 </code></pre>
-
 <p><code>&lt;hash&gt;</code> refers to an arbitrary commit from the local Git repo, e. g. a specific fix from master / trunk.</p>
-
 <h2 id="links">Links</h2>
-
 <ul>
 <li>Official docs: <a href="https://git-scm.com/docs/git-svn">https://git-scm.com/docs/git-svn</a></li>
 <li>Useful StackOverflow answer: <a href="https://stackoverflow.com/questions/3239759/checkout-remote-branch-using-git-svn">https://stackoverflow.com/questions/3239759/checkout-remote-branch-using-git-svn</a></li>

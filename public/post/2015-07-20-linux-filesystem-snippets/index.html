@@ -5,9 +5,9 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.54.0" />
+  <meta name="generator" content="Hugo 0.80.0" />
 
-  <title>Linux Snippets &middot; Knowledge Base</title>
+  <title>Linux Snippets &middot; Braindumpling</title>
 
   
   
@@ -177,7 +177,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2021. All rights reserved.</small>
+    <small>&copy; 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -213,48 +213,31 @@
 </div>
 
   <p>This article collects all kinds of useful tips and tricks around Linux usage, mostly if not all of them about command line tools. Many have been collected over the years, so any advanced user may not find them interesting. But when getting started with the command line, they may still be helpful for new users.</p>
-
 <h2 id="common-issues">Common issues</h2>
-
 <h3 id="too-many-open-files">&ldquo;Too many open files&rdquo;</h3>
-
 <ul>
 <li>check current limit (only valid for executing user): <code>ulimit -a</code> or specifically <code>ulimit -n</code> (<code>-n</code> refers to &ldquo;number of files&rdquo;)</li>
 <li>set limit with <code>ulimit -n unlimited</code> or <code>ulimit -n 65535</code> (may result in &ldquo;permission denied&rdquo;)</li>
 <li>on Fedora: edit <code>/etc/security/limits.conf</code></li>
 </ul>
-
 <h2 id="common-filesystem-tasks">Common filesystem tasks</h2>
-
 <h3 id="list-folders-by-size-descending-recursively">List folders by size descending recursively</h3>
-
 <pre><code>    find . -type d -exec du -b {} \; | sort -nr | uniq
 </code></pre>
-
 <h3 id="latest-changed-files-one-folder-deep-search">Latest changed files (one folder deep search)</h3>
-
 <pre><code>    find . -maxdepth 2 -type f -exec stat -c %y_%n {} \; | sort -r | less
 </code></pre>
-
 <h3 id="10-latest-changed-files-recursively">10 latest changed files (recursively)</h3>
-
 <pre><code>    find . -type f -printf '%TF_%TT %p \n' | sort -r | head -n 10
 </code></pre>
-
 <h3 id="change-file-encoding-e-g-from-utf-8">Change file encoding (e. g. from UTF-8)</h3>
-
 <pre><code>    recode -f ascii &lt;file&gt;
 </code></pre>
-
 <h2 id="networking-and-web">Networking and Web</h2>
-
 <h3 id="use-kernel-prerouting-to-direct-traffic-from-port-80-to-8080-e-g-for-fronting-tomcat">Use kernel prerouting to direct traffic from port 80 to 8080, e. g. for fronting tomcat</h3>
-
 <pre><code>    iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination :8080
 </code></pre>
-
-<h3 id="repeatedly-serve-a-file-using-netcat-call-with-wget-http-localhost-12345">Repeatedly serve a file using netcat (call with wget <a href="http://localhost:12345/">http://localhost:12345/</a>)</h3>
-
+<h3 id="repeatedly-serve-a-file-using-netcat-call-with-wget-httplocalhost12345">Repeatedly serve a file using netcat (call with wget http://localhost:12345/)</h3>
 <pre><code>    #!/bin/bash
 
     while true
@@ -264,19 +247,14 @@
 
     exit 0
 </code></pre>
-
 <h3 id="apply-htdigest-protection-to-apache-directory">Apply htdigest protection to Apache directory</h3>
-
 <h4 id="required-modules">Required modules</h4>
-
 <ul>
 <li><code>mod_authz_user</code></li>
 <li><code>mod_auth_digest</code></li>
 <li><code>mod_authn_file</code></li>
 </ul>
-
 <h4 id="configuration">Configuration</h4>
-
 <pre><code>    &lt;Location /path/to/protect&gt;
        AuthType Digest
        AuthName &quot;Protected Area&quot;
@@ -286,17 +264,12 @@
        Require valid-user
     &lt;/Location&gt;
 </code></pre>
-
-<h4 id="create-digest-pw-file">Create digest_pw file</h4>
-
+<h4 id="create-digest_pw-file">Create digest_pw file</h4>
 <pre><code>    htdigest -c /etc/apache2/conf/digest_pw &quot;Protected Area&quot; username
     =&gt; will be asked for password, file created
 </code></pre>
-
 <h3 id="upload-multiple-files-via-ftp-which-is-an-interactive-tool">Upload multiple files via FTP (which is an interactive tool)</h3>
-
 <p>Requires curlftpfs and fuse + rsync</p>
-
 <pre><code>    #!/bin/bash
 
     SOURCE_DIR=./dist/

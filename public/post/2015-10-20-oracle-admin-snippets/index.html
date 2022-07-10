@@ -5,9 +5,9 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.54.0" />
+  <meta name="generator" content="Hugo 0.80.0" />
 
-  <title>Oracle Administration Snippets &middot; Knowledge Base</title>
+  <title>Oracle Administration Snippets &middot; Braindumpling</title>
 
   
   
@@ -177,7 +177,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2021. All rights reserved.</small>
+    <small>&copy; 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -213,11 +213,8 @@
 </div>
 
   <p>On this page I am collecting bits and pieces which help with Oracle database administration. I have collected them from over the internet, so thanks a lot to all those people providing these helpful examples. In case you are the author of one of them and would like some credit, please let me know and I will mention the source gladly.</p>
-
 <h2 id="locks">Locks</h2>
-
 <h3 id="check-for-blocking-locks">Check for blocking locks</h3>
-
 <pre><code>    select s1.username || '@' || s1.machine
      || ' ( SID=' || s1.sid || ' )  is blocking '
         || s2.username || '@' || s2.machine || ' ( SID=' || s2.sid || ' ) ' AS blocking_status
@@ -227,18 +224,12 @@
         and l1.id1 = l2.id1
         and l2.id2 = l2.id2;
 </code></pre>
-
 <h2 id="sessions">Sessions</h2>
-
-<h3 id="check-kill-user-sessions">Check / kill user sessions</h3>
-
+<h3 id="check--kill-user-sessions">Check / kill user sessions</h3>
 <h4 id="show-all-sessions">Show all sessions</h4>
-
 <pre><code>    select * from v$session;
 </code></pre>
-
 <h4 id="session-details">Session details</h4>
-
 <pre><code>    SELECT se.osuser,se.username,se.status,se.sid &quot;O-sid&quot;,
     p.pid &quot;O-pid&quot; ,se.process &quot;user pid&quot;, p.spid &quot;wkg-pid&quot;,
     to_char(se.logon_time,'MM/DD/YY HH24:MI') &quot;logon&quot;,se.machine
@@ -246,27 +237,18 @@
     WHERE addr=paddr AND se.osuser IS NOT NULL AND se.username IS NOT NULL
     ORDER BY se.osuser
 </code></pre>
-
-<h4 id="kill-session-sid-serial-from-v-session-mentioned-above-execute-as-system">Kill session (sid &amp; serial# from v$session mentioned above, execute as SYSTEM)</h4>
-
+<h4 id="kill-session-sid--serial-from-vsession-mentioned-above-execute-as-system">Kill session (sid &amp; serial# from v$session mentioned above, execute as SYSTEM)</h4>
 <pre><code>    ALTER SYSTEM KILL SESSION 'sid,serial#';
 </code></pre>
-
 <h4 id="kill-session-the-hard-way-parameters-as-above">Kill session the hard way (parameters as above)</h4>
-
 <pre><code>    ALTER SYSTEM KILL SESSION 'sid,serial#' IMMEDIATE;
 </code></pre>
-
 <h2 id="sql-statements">SQL Statements</h2>
-
-<h3 id="display-sql-for-sql-id">Display SQL for sql_id</h3>
-
+<h3 id="display-sql-for-sql_id">Display SQL for sql_id</h3>
 <pre><code>    -- sql_id can be determined from v$session
     select * from v$sqlarea where sql_id= '3fmfmpj2kuuf7';
 </code></pre>
-
 <h3 id="locked-tables-and-objects">Locked tables and objects</h3>
-
 <pre><code>    -- Locks by type
     SELECT session_id,lock_type, mode_held, mode_requested, blocking_others, lock_id1
     FROM dba_lock l
@@ -322,11 +304,8 @@
     AND s2.paddr = p2.addr (+)
     ORDER BY w.last_convert desc;
 </code></pre>
-
 <h2 id="tablespaces">Tablespaces</h2>
-
 <h3 id="tablespace-informations">Tablespace Informations</h3>
-
 <pre><code>    select
        fs.tablespace_name                          &quot;Tablespace&quot;,
        (df.totalspace - fs.freespace)              &quot;Used MB&quot;,
@@ -353,9 +332,7 @@
     where
        df.tablespace_name = fs.tablespace_name;
 </code></pre>
-
 <h3 id="table-sizes-for-the-current-schema">Table sizes for the current schema</h3>
-
 <pre><code>    SET serveroutput ON
     DECLARE
       CURSOR tabs
@@ -381,24 +358,17 @@
     END;
     /
 </code></pre>
-
 <h2 id="database-objects">Database objects</h2>
-
 <h3 id="reverse-engineering-of-db-objects">Reverse Engineering of DB objects</h3>
-
 <pre><code>    select DBMS_METADATA.GET_DDL('TABLE','table_name') from dual;
 </code></pre>
-
 <h3 id="create-db-links">Create DB links</h3>
-
 <pre><code>    CREATE DATABASE LINK &quot;link_name&quot;
       CONNECT TO schema_name
       IDENTIFIED BY pass
       USING 'tns definition (e. g. from tnsnames.ora)';
 </code></pre>
-
 <h3 id="determine-table-size-mb">Determine table size (MB)</h3>
-
 <pre><code>    SELECT
       segment_name AS table_name,
       Sum(bytes)/(1024*1024) table_size_meg
@@ -407,17 +377,13 @@
     AND segment_name = 'table_name'
     GROUP BY segment_name
 </code></pre>
-
 <h3 id="check-compile-state-of-db-objects">Check compile state of DB objects</h3>
-
 <pre><code>    SELECT o.object_type, o.object_name
     FROM user_objects o
     WHERE o.status &lt;&gt; 'VALID'
     AND o.object_type IN ('VIEW','PROCEDURE','FUNCTION','PACKAGE','TRIGGER')
 </code></pre>
-
 <h3 id="check-long-operations">Check long operations</h3>
-
 <pre><code>    SELECT v.sid, se.osuser, se.machine, se.program, v.target, v.opname
     FROM V$SESSION_LONGOPS v, v$session se
     WHERE v.sid = se.sid
@@ -439,9 +405,7 @@
     AND v.username = 'schema_name'
     AND se.sid = '&lt;sid&gt;';
 </code></pre>
-
 <h3 id="check-where-the-trace-file-for-current-session-is">Check where the trace file for current session is</h3>
-
 <pre><code>    select
       u_dump.value   || '/'     ||
       db_name.value  || '_ora_' ||
