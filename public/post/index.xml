@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 25 Jul 2021 09:13:30 +0200</lastBuildDate><atom:link href="https://box.axelknauf.de/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Jul 2022 16:22:27 +0200</lastBuildDate><atom:link href="https://box.axelknauf.de/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>YouTube without ads on iOS</title>
+      <link>https://box.axelknauf.de/post/2022-07-10_youtube_without_ads_on_ios/</link>
+      <pubDate>Sun, 10 Jul 2022 16:22:27 +0200</pubDate>
+      
+      <guid>https://box.axelknauf.de/post/2022-07-10_youtube_without_ads_on_ios/</guid>
+      <description>I bought an iPad last year. Being used to browsing the web with Firefox and uBlock Origin, I was overwhelmed by the amount of advertising when using it. I found out that iOS forces browsers to use the built-in Webkit engine and does not allow extensions at all.
+Here&amp;rsquo;s what I did to be able to browse the web and watch YouTube videos without advertisements on iOS.
+Network-wide DNS filtering First of all I installed a PiHole DNS server on my network and configured my router to announce it as DNS host for all clients.</description>
+    </item>
+    
     <item>
       <title>Backup IMAP mails with offlineimap</title>
       <link>https://box.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/</link>

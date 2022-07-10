@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.80.0" />
 
-  <title>Posts &middot; Braindumpling</title>
+  <title>YouTube without ads on iOS &middot; Braindumpling</title>
 
   
   
@@ -39,8 +39,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
  
-  
-  <link rel="alternate" type="application/rss+xml" title="Braindumpling" href="https://box.axelknauf.de/post/index.xml" />
   
 
   
@@ -95,10 +93,6 @@
   <div class="pure-menu social">
   <ul class="pure-menu-list">
 
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://box.axelknauf.de/post/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-    </li>
     
 
     
@@ -198,68 +192,79 @@
 
 
 <div class="header">
-  <h1>Posts</h1>
+  <h1>YouTube without ads on iOS</h1>
+  <h2></h2>
 </div>
 <div class="content">
-  
-  <h2>2022</h2>
-  <ul>
-  
-    <li><time>10 Jul 2022</time> - <a href="https://box.axelknauf.de/post/2022-07-10_youtube_without_ads_on_ios/">YouTube without ads on iOS</a></li>
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>10 Jul 2022</time>
+  </div>
 
   
-  </ul>
-  
-  <h2>2021</h2>
-  <ul>
-  
-    <li><time>25 Jul 2021</time> - <a href="https://box.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/">Backup IMAP mails with offlineimap</a></li>
 
   
-    <li><time>23 Jul 2021</time> - <a href="https://box.axelknauf.de/post/2021-07-23_a_walk_in_the_park/">A Walk in the Park</a></li>
 
   
-  </ul>
-  
-  <h2>2017</h2>
-  <ul>
-  
-    <li><time>24 Jan 2017</time> - <a href="https://box.axelknauf.de/post/2017-01-24-setting-up-seafile-on-odroid-c2/">Setting up Seafile on an Odroid C2</a></li>
+
+</div>
+
+  <p>I bought an iPad last year. Being used to browsing the web with Firefox and uBlock Origin, I was overwhelmed by the amount of advertising when using it. I found out that iOS forces browsers to use the built-in Webkit engine and does not allow extensions at all.</p>
+<p>Here&rsquo;s what I did to be able to browse the web and watch YouTube videos without advertisements on iOS.</p>
+<h2 id="network-wide-dns-filtering">Network-wide DNS filtering</h2>
+<p>First of all I installed a <a href="https://pi-hole.net/">PiHole DNS server</a> on my network and configured my router to announce it as DNS host for all clients.</p>
+<p>Works fine for regular clients, but iOS is different. By default, all DNS queries will be routed through iCloud (officially for privacy reasons, but I am sure they&rsquo;re doing some kind of tracking). So I had to change the network settings using a manually configured DNS server.</p>
+<p>That got rid of in-app advertisements, yay! But alas, opening YouTube always confronted my with in-video ads every few minutes. I did some research and found out:</p>
+<ul>
+<li>the native YT app (produced by Google) will always show ads, regardless of what you do. The only way out is subscribing.</li>
+<li>using any browser (Safari, Firefox, DuckDuckGo) all use the same Webkit engine which does not block ads</li>
+</ul>
+<p>Not at all? Yes, there is a way.</p>
+<h2 id="configuring-the-browsers">Configuring the browser(s)</h2>
+<p>I installed the &ldquo;Kaboom&rdquo; ad blocking extension into Safari, that made web-browsing a bit better. Still, YT ads. But then I found the &ldquo;Vinegar&rdquo; extension (at a cost of 2 EUR) and installed it. I had to enable it in the Safari settings, and essentially it only does one thing: replace the flashy YT player with a standard HTML5 &lt;video&gt; element.</p>
+<p>This is pretty useful:</p>
+<ul>
+<li>ad blocking now works in Safari, including YT videos</li>
+<li>the native HTML5 player has all standard controls, like PIP, theater mode, skipping etc.</li>
+</ul>
+<p>It only works in Safari, though, because the plugins are not enabled for the derived browsers. But still.</p>
+<h2 id="how-to-avoid-the-yt-app">How to avoid the YT app</h2>
+<p>By default iOS will open YouTube links in the native app. To stay in the browser I had to long-press YT links and choose &ldquo;open in tab&rdquo; instead. Afterwards Safari understood that I want to browse and watch YT in the browser.</p>
+<p>Hooray for watching video on my tablet without advertisements!</p>
+
 
   
-  </ul>
-  
-  <h2>2016</h2>
-  <ul>
-  
-    <li><time>12 Jan 2016</time> - <a href="https://box.axelknauf.de/post/2016-01-12-linux-apache-ssl-howto/">Linux: Self-signed certificate for Apache SSL</a></li>
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://box.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://box.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/">Backup IMAP mails with offlineimap</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
 
   
-  </ul>
-  
-  <h2>2015</h2>
-  <ul>
-  
-    <li><time>27 Dec 2015</time> - <a href="https://box.axelknauf.de/post/2015-12-27-linux-unison-synchronization/">Linux: Keeping files in sync with unison</a></li>
 
-  
-    <li><time>20 Dec 2015</time> - <a href="https://box.axelknauf.de/post/2015-12-20-java-throttling-exception-limit/">Java: Dynamic Event Throttling</a></li>
-
-  
-    <li><time>18 Dec 2015</time> - <a href="https://box.axelknauf.de/post/2015-12-18-using-git-as-svn-client/">Using Git as SVN client</a></li>
-
-  
-    <li><time>20 Oct 2015</time> - <a href="https://box.axelknauf.de/post/2015-10-20-oracle-admin-snippets/">Oracle Administration Snippets</a></li>
-
-  
-    <li><time>20 Jul 2015</time> - <a href="https://box.axelknauf.de/post/2015-07-20-linux-filesystem-snippets/">Linux Snippets</a></li>
-
-  
-    <li><time>24 May 2015</time> - <a href="https://box.axelknauf.de/post/2015-05-24-xps13-9343/">Linux: Dell XPS 13 9343</a></li>
-
-  
-  </ul>
-  
 </div>
 
 </div>
