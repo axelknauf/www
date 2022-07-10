@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Braindumpling</title>
-    <link>https://www.axelknauf.de/</link>
+    <link>https://box.axelknauf.de/</link>
     <description>Recent content on Braindumpling</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 25 Jul 2021 09:13:30 +0200</lastBuildDate><atom:link href="https://www.axelknauf.de/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Jul 2021 09:13:30 +0200</lastBuildDate><atom:link href="https://box.axelknauf.de/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Backup IMAP mails with offlineimap</title>
-      <link>https://www.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/</link>
+      <link>https://box.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/</link>
       <pubDate>Sun, 25 Jul 2021 09:13:30 +0200</pubDate>
       
-      <guid>https://www.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/</guid>
+      <guid>https://box.axelknauf.de/post/2021-07-25_mail_backup_with_offlineimap/</guid>
       <description>Motivation My email provider is awesome, but the default mailbox size is 2G. In fact, this is a good thing because it forces me to clean up my mails from time to time. Today is such a day. But since I do not want to lose my old mail archives I wanted to create a backup of my full IMAP account first. Here&amp;rsquo;s what I did.
 OfflineIMAP offlineimap is the perfect tool for the job.</description>
     </item>
     
     <item>
       <title>A Walk in the Park</title>
-      <link>https://www.axelknauf.de/post/2021-07-23_a_walk_in_the_park/</link>
+      <link>https://box.axelknauf.de/post/2021-07-23_a_walk_in_the_park/</link>
       <pubDate>Fri, 23 Jul 2021 09:12:52 +0200</pubDate>
       
-      <guid>https://www.axelknauf.de/post/2021-07-23_a_walk_in_the_park/</guid>
+      <guid>https://box.axelknauf.de/post/2021-07-23_a_walk_in_the_park/</guid>
       <description>A Walk in the Park Scenario Ever wondered why you run into so many people when going for a walk in the park? Me, too. What struck me as remarkable was that I would not only encounter a lot of individuals, but the number of &amp;lsquo;collisions&amp;rsquo; with more than one other pedestrians at the same time! So I thought I&amp;rsquo;ll try to simulate a walk in the park and see what the numbers say.</description>
     </item>
     
     <item>
       <title>Setting up Seafile on an Odroid C2</title>
-      <link>https://www.axelknauf.de/post/2017-01-24-setting-up-seafile-on-odroid-c2/</link>
+      <link>https://box.axelknauf.de/post/2017-01-24-setting-up-seafile-on-odroid-c2/</link>
       <pubDate>Tue, 24 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://www.axelknauf.de/post/2017-01-24-setting-up-seafile-on-odroid-c2/</guid>
+      <guid>https://box.axelknauf.de/post/2017-01-24-setting-up-seafile-on-odroid-c2/</guid>
       <description>Steps This post describes the steps required to set up a self-hosted Seafile server (a Dropbox alternative) using an Odroid C2 with external hard-drive and a custom domain with HTTPs. If not mentioned otherwise, many command should be run as root user.
 Hardware  Odroid C2 Starter kit with: Odroid C2, eMMC module with Ubuntu 16.04, power adapter, case, external hard drive  Basic OS setup Install all updates
 apt-get update apt-get dist-upgrade apt-get autoremove apt-get install screen vim-nox Remove all unnecessary packages, e.</description>
@@ -40,64 +40,64 @@ apt-get update apt-get dist-upgrade apt-get autoremove apt-get install screen vi
     
     <item>
       <title>Linux: Self-signed certificate for Apache SSL</title>
-      <link>https://www.axelknauf.de/post/2016-01-12-linux-apache-ssl-howto/</link>
+      <link>https://box.axelknauf.de/post/2016-01-12-linux-apache-ssl-howto/</link>
       <pubDate>Tue, 12 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.axelknauf.de/post/2016-01-12-linux-apache-ssl-howto/</guid>
+      <guid>https://box.axelknauf.de/post/2016-01-12-linux-apache-ssl-howto/</guid>
       <description>&lt;p&gt;This article details how to generate an SSL certificate in order to encrypt traffic on an Aache hosted site using HTTPS. The certificate will be self-signed, meaning browsers will still show a warning message when accessing the page.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Linux: Keeping files in sync with unison</title>
-      <link>https://www.axelknauf.de/post/2015-12-27-linux-unison-synchronization/</link>
+      <link>https://box.axelknauf.de/post/2015-12-27-linux-unison-synchronization/</link>
       <pubDate>Sun, 27 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.axelknauf.de/post/2015-12-27-linux-unison-synchronization/</guid>
+      <guid>https://box.axelknauf.de/post/2015-12-27-linux-unison-synchronization/</guid>
       <description>&lt;p&gt;In this post I would like to describe how to keep files in sync across two (or more) computers using a central storage and the useful tool &lt;code&gt;unison&lt;/code&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Java: Dynamic Event Throttling</title>
-      <link>https://www.axelknauf.de/post/2015-12-20-java-throttling-exception-limit/</link>
+      <link>https://box.axelknauf.de/post/2015-12-20-java-throttling-exception-limit/</link>
       <pubDate>Sun, 20 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.axelknauf.de/post/2015-12-20-java-throttling-exception-limit/</guid>
+      <guid>https://box.axelknauf.de/post/2015-12-20-java-throttling-exception-limit/</guid>
       <description>&lt;p&gt;In the code snippet described below I outline an algorithm for dynamically throttle the number of events occurring. In the example I limit the rate of exceptions being thrown, but theoretically this can be any kind of event, e. g. requests coming from some event source or user.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Using Git as SVN client</title>
-      <link>https://www.axelknauf.de/post/2015-12-18-using-git-as-svn-client/</link>
+      <link>https://box.axelknauf.de/post/2015-12-18-using-git-as-svn-client/</link>
       <pubDate>Fri, 18 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.axelknauf.de/post/2015-12-18-using-git-as-svn-client/</guid>
+      <guid>https://box.axelknauf.de/post/2015-12-18-using-git-as-svn-client/</guid>
       <description>&lt;p&gt;Using Git as SVN client is quite easy, since the functionality has been built-in already, named the &amp;ldquo;git-svn&amp;rdquo; bridge. It boils down to an additional Git command which can be used in the form &lt;code&gt;git svn &amp;lt;command&amp;gt;&lt;/code&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Oracle Administration Snippets</title>
-      <link>https://www.axelknauf.de/post/2015-10-20-oracle-admin-snippets/</link>
+      <link>https://box.axelknauf.de/post/2015-10-20-oracle-admin-snippets/</link>
       <pubDate>Tue, 20 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.axelknauf.de/post/2015-10-20-oracle-admin-snippets/</guid>
+      <guid>https://box.axelknauf.de/post/2015-10-20-oracle-admin-snippets/</guid>
       <description>&lt;p&gt;On this page I am collecting bits and pieces which help with Oracle database administration. I have collected them from over the internet, so thanks a lot to all those people providing these helpful examples. In case you are the author of one of them and would like some credit, please let me know and I will mention the source gladly.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Linux Snippets</title>
-      <link>https://www.axelknauf.de/post/2015-07-20-linux-filesystem-snippets/</link>
+      <link>https://box.axelknauf.de/post/2015-07-20-linux-filesystem-snippets/</link>
       <pubDate>Mon, 20 Jul 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.axelknauf.de/post/2015-07-20-linux-filesystem-snippets/</guid>
+      <guid>https://box.axelknauf.de/post/2015-07-20-linux-filesystem-snippets/</guid>
       <description>&lt;p&gt;This article collects all kinds of useful tips and tricks around Linux usage, mostly if not all of them about command line tools. Many have been collected over the years, so any advanced user may not find them interesting. But when getting started with the command line, they may still be helpful for new users.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Linux: Dell XPS 13 9343</title>
-      <link>https://www.axelknauf.de/post/2015-05-24-xps13-9343/</link>
+      <link>https://box.axelknauf.de/post/2015-05-24-xps13-9343/</link>
       <pubDate>Sun, 24 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.axelknauf.de/post/2015-05-24-xps13-9343/</guid>
+      <guid>https://box.axelknauf.de/post/2015-05-24-xps13-9343/</guid>
       <description>&lt;p&gt;A couple of days ago I received my new toy: A brand new Dell XPS 13 Developer Edition with pre-installed Ubuntu Linux 14.04 LTS. This post summarizes my experiences through the first couple of days - technical issues, their solutions and my general impressions about the device.&lt;/p&gt;</description>
     </item>
     

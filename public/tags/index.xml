@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Braindumpling</title>
-    <link>https://www.axelknauf.de/tags/</link>
+    <link>https://box.axelknauf.de/tags/</link>
     <description>Recent content in Tags on Braindumpling</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2022. All rights reserved.</copyright><atom:link href="https://www.axelknauf.de/tags/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; 2022. All rights reserved.</copyright><atom:link href="https://box.axelknauf.de/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
