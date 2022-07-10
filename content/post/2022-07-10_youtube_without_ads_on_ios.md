@@ -1,7 +1,7 @@
 ---
 title: "YouTube without ads on iOS"
 date: 2022-07-10T16:22:27+02:00
-draft: true
+draft: false
 ---
 
 I bought an iPad last year. Being used to browsing the web with Firefox and uBlock Origin, I was overwhelmed by the amount of advertising when using it. I found out that iOS forces browsers to use the built-in Webkit engine and does not allow extensions at all.

@@ -14,8 +14,8 @@ Ever wondered why you run into so many people when going for a walk in the park?
 
 Here you go:
 
-* Simulation: https://www.axelknauf.de/~axel/walking.html
-* Source: https://www.axelknauf.de/~axel/walking.js
+* Simulation: https://box.axelknauf.de/~axel/walking.html
+* Source: https://box.axelknauf.de/~axel/walking.js
 
 (Please don't judge me for the code quality, it has just been hacked together for the fun of it.)
 
