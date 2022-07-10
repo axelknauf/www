@@ -1,4 +1,4 @@
-baseURL = "https://www.axelknauf.de/"
+baseURL = "https://box.axelknauf.de/"
 languageCode = "en-us"
 title = "Braindumpling"
 theme = "blackburn"
