@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 12 Jul 2022 12:08:49 +0200</lastBuildDate><atom:link href="https://box.axelknauf.de/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Jul 2022 10:26:19 +0200</lastBuildDate><atom:link href="https://box.axelknauf.de/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Software engineering productivity</title>
+      <link>https://box.axelknauf.de/post/2022-07-13_thoughtworks_engineering_governance/</link>
+      <pubDate>Wed, 13 Jul 2022 10:26:19 +0200</pubDate>
+      
+      <guid>https://box.axelknauf.de/post/2022-07-13_thoughtworks_engineering_governance/</guid>
+      <description>ThoughtWorks is well-known for their Tech Radar and general impact on the IT software development community. They just recently released an article about &amp;ldquo;Engineering productivity governance and improvement in software delivery&amp;rdquo;. The title may be a bit unwieldy, but the content is interesting and relevant for everybody working with software engineering teams.
+It&amp;rsquo;s about how to make teams more successful, individuals happier and customers more satisfied by implementing a variety of processes and methods in order to structure the ways of working.</description>
+    </item>
+    
     <item>
       <title>The Socratic Method</title>
       <link>https://box.axelknauf.de/post/2022-07-12_the_socratic_method/</link>
