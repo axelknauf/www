@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 04 Sep 2022 09:49:44 +0200</lastBuildDate><atom:link href="https://box.axelknauf.de/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Sep 2022 07:01:49 +0200</lastBuildDate><atom:link href="https://box.axelknauf.de/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Surviving Continuous Deployment in Distributed Systems</title>
+      <link>https://box.axelknauf.de/post/2022-09-16_surviving_continuous_deployment/</link>
+      <pubDate>Fri, 16 Sep 2022 07:01:49 +0200</pubDate>
+      
+      <guid>https://box.axelknauf.de/post/2022-09-16_surviving_continuous_deployment/</guid>
+      <description>DevOps culture has been around for quite some time. Some good books exist on the topic, starting with the canonical &amp;ldquo;Continuous Delivery&amp;rdquo;, novels like &amp;ldquo;The Phoenix Project&amp;rdquo; and &amp;ldquo;Project Unicorn&amp;rdquo; or great text books such as &amp;ldquo;The DevOps Handbook&amp;rdquo;.
+When attempting to establish DevOps culture with continuous delivery as part of it, there are many challenges we need to overcome. Everybody uses pipelines and automated builds nowadays. But becoming a mature dev team that brings down cycle times to mere minutes requires more than that.</description>
+    </item>
+    
     <item>
       <title>AI-generated art - DIY!</title>
       <link>https://box.axelknauf.de/post/2022-09-04_ai_generated_art/</link>
